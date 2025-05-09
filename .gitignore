@@ -1,0 +1,16 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+
+# VS Code
+.vscode/
+
+# Frontend
+client/node_modules/
+dist/
+
+# OS-filer
+.DS_Store
+Thumbs.db

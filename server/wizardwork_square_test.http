@@ -1,0 +1,6 @@
+@wizardwork_square_test_HostAddress = http://localhost:5015
+
+GET {{wizardwork_square_test_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
