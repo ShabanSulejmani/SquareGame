@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "0a9f9c26-20a3-43de-85b5-f68db1b2d402",
+		"name": "SquareGame",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43523371"
+	},
+	"item": [
+		{
+			"name": "Get All Square",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5015/api/squares",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5015",
+					"path": [
+						"api",
+						"squares"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post New Square",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"x\": 1,\r\n  \"y\": 3,\r\n  \"color\": \"#FF5733\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5015/api/squares",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5015",
+					"path": [
+						"api",
+						"squares"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete All Square",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5015/api/squares",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5015",
+					"path": [
+						"api",
+						"squares"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
