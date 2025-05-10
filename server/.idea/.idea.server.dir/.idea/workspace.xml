@@ -5,12 +5,23 @@
     <projectFile profileName="http">wizardwork_square_test.csproj</projectFile>
     <projectFile profileName="https">wizardwork_square_test.csproj</projectFile>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a46e80f2-fabb-4e9e-bd47-f0c6bc5efea6" name="Changes" comment="" />
+    <list default="true" id="a46e80f2-fabb-4e9e-bd47-f0c6bc5efea6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.server.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.server.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/SquareService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/SquareService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wizardwork_square_test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/wizardwork_square_test.csproj" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -40,6 +51,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Launch Settings Profile.wizardwork_square_test: IIS Express.executor": "Run",
+    ".NET Launch Settings Profile.wizardwork_square_test: http.executor": "Run",
+    ".NET Launch Settings Profile.wizardwork_square_test: https.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
@@ -52,7 +66,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.wizardwork_square_test: IIS Express">
+  <component name="RunManager" selected=".NET Launch Settings Profile.wizardwork_square_test: http">
     <configuration name="wizardwork_square_test: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/wizardwork_square_test.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
@@ -109,6 +123,7 @@
       <updated>1746793341515</updated>
       <workItem from="1746793346740" duration="116000" />
       <workItem from="1746793948737" duration="504000" />
+      <workItem from="1746908383008" duration="4140000" />
     </task>
     <servers />
   </component>

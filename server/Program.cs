@@ -3,46 +3,50 @@ using wizardwork_square_test.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Register our SquareService as a service that can be injected
+// Set port explicitly for consistency
+builder.WebHost.UseUrls("http://localhost:5015");
+
+// Add services to the container
 builder.Services.AddScoped<ISquareService, SquareService>();
 
-// Add CORS services to allow our frontend to make requests
-builder.Services.AddCors(options =>
+// Add logging services
+builder.Services.AddLogging(logging =>
 {
-    options.AddPolicy("AllowAll",
-        builder => builder
-            .AllowAnyOrigin()    // Allow requests from any origin
-            .AllowAnyMethod()    // Allow any HTTP method (GET, POST, etc.)
-            .AllowAnyHeader());  // Allow any HTTP headers
+    logging.AddConsole();
+    logging.AddDebug();
 });
+
+// Remove CORS configuration as we're using proxy instead
+// No need for CORS when using a proxy approach
 
 // Add authorization services
 builder.Services.AddAuthorization();
-
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Disable HTTPS redirection for development
+// app.UseHttpsRedirection();
 
-// Enable CORS with the policy we defined above
-app.UseCors("AllowAll");
+// Remove CORS middleware - not needed with proxy approach
+// app.UseCors("AllowAll");
 
-// Enable routing and authorization
 app.UseRouting();
 app.UseAuthorization();
 
-// Map the Square endpoints from your SquaresEndpoints class
+// Map the Square endpoints
 app.MapSquaresEndpoints();
+
+// Log that the app has started
+app.Logger.LogInformation("Application started. Listening on port 5015.");
 
 app.Run();
