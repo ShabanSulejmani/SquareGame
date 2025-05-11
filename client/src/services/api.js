@@ -1,4 +1,4 @@
-// Use relative URL instead of absolute URL
+
 const API_URL = '/api';
 
 /**

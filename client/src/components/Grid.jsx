@@ -7,7 +7,7 @@ import Square from './Square';
  */
 const Grid = () => {
     const { squares, createSquare, resetSquares, loading, error } = useSquareContext();
-    const [gridSize, setGridSize] = useState({ width: 10, height: 10 });
+    const [gridSize] = useState({ width: 10, height: 10 });
     const [nextPosition, setNextPosition] = useState({ x: 0, y: 0 });
     const [isGridFull, setIsGridFull] = useState(false);
 
@@ -31,8 +31,7 @@ const Grid = () => {
             const newY = newX === 0 ? nextPosition.y + 1 : nextPosition.y;
             setNextPosition({ x: newX, y: newY % gridSize.height });
         } catch (err) {
-            // Felhantering sker i context
-            console.log('Kunde inte lägga till kvadrat på aktuell position');
+            console.error('Kunde inte lägga till kvadrat på aktuell position:', err);
         }
     };
 
