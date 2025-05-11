@@ -3,46 +3,42 @@ using wizardwork_square_test.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Register our SquareService as a service that can be injected
+// Ange port explicit för konsistens
+builder.WebHost.UseUrls("http://localhost:5015");
+
+// Lägg till tjänster i containern
 builder.Services.AddScoped<ISquareService, SquareService>();
 
-// Add CORS services to allow our frontend to make requests
-builder.Services.AddCors(options =>
+// Lägg till loggningstjänster
+builder.Services.AddLogging(logging =>
 {
-    options.AddPolicy("AllowAll",
-        builder => builder
-            .AllowAnyOrigin()    // Allow requests from any origin
-            .AllowAnyMethod()    // Allow any HTTP method (GET, POST, etc.)
-            .AllowAnyHeader());  // Allow any HTTP headers
+    logging.AddConsole();
+    logging.AddDebug();
 });
 
-// Add authorization services
-builder.Services.AddAuthorization();
 
+// Lägg till auktoriseringstjänster
+builder.Services.AddAuthorization();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Konfigurera HTTP-begäranspipelinen
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
-
-// Enable CORS with the policy we defined above
-app.UseCors("AllowAll");
-
-// Enable routing and authorization
+// Konfigurerar routing och auktorisering för att hantera HTTP-förfrågningar och åtkomstkontroll
 app.UseRouting();
 app.UseAuthorization();
 
-// Map the Square endpoints from your SquaresEndpoints class
+// Mappa kvadrat-endpoints
 app.MapSquaresEndpoints();
+
+// Logga att appen har startat
+app.Logger.LogInformation("Application started. Listening on port 5015.");
 
 app.Run();

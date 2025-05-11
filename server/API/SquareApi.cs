@@ -10,14 +10,14 @@ namespace wizardwork_square_test.Endpoints
         {
             var group = app.MapGroup("api/squares");
 
-            // GET: Get all squares
+            // GET: Hämta alla kvadrater
             group.MapGet("/", async (ISquareService squareService, ILogger<Square> logger) =>
             {
                 try
                 {
                     var squares = await squareService.GetAllSquaresAsync();
                     return Results.Ok(squares);
-                }
+                } // Logga eventuella fel
                 catch (Exception ex)
                 {
                     logger.LogError(ex, "Error retrieving squares");
@@ -32,7 +32,7 @@ namespace wizardwork_square_test.Endpoints
                 return operation;
             });
 
-            // POST: Add a new square
+            // POST: Lägg till en ny kvadrat
             group.MapPost("/", async (Square square, ISquareService squareService, ILogger<Square> logger) =>
             {
                 try
@@ -49,7 +49,7 @@ namespace wizardwork_square_test.Endpoints
                 {
                     return Results.Conflict(ex.Message);
                 }
-                catch (Exception ex)
+                catch (Exception ex) // Logga eventuella fel
                 {
                     logger.LogError(ex, "Error adding square");
                     return Results.StatusCode(500);
@@ -64,7 +64,7 @@ namespace wizardwork_square_test.Endpoints
                 return operation;
             });
 
-            // DELETE: Clear all squares
+            // DELETE: Rensa alla kvadrater
             group.MapDelete("/", async (ISquareService squareService, ILogger<Square> logger) =>
             {
                 try
@@ -72,7 +72,7 @@ namespace wizardwork_square_test.Endpoints
                     await squareService.ClearAllSquaresAsync();
                     return Results.NoContent();
                 }
-                catch (Exception ex)
+                catch (Exception ex) // Logga eventuella fel
                 {
                     logger.LogError(ex, "Error clearing squares");
                     return Results.StatusCode(500);

@@ -3,7 +3,7 @@ using wizardwork_square_test.Models;
 
 namespace wizardwork_square_test.Services
 {
-    // Interface defines what methods the service must implement
+// Gränssnittet definierar vilka metoder tjänsten måste implementera
     public interface ISquareService
     {
         Task<IEnumerable<Square>> GetAllSquaresAsync();
@@ -11,112 +11,136 @@ namespace wizardwork_square_test.Services
         Task ClearAllSquaresAsync();
     }
 
-    // The actual implementation of the square service
+    // Den faktiska implementationen av kvadrattjänsten
     public class SquareService : ISquareService
     {
         private readonly string _dataFilePath;
         private readonly ILogger<SquareService> _logger;
         private readonly JsonSerializerOptions _jsonOptions;
 
-        // Constructor - initializes the service and ensures the data file exists
+        // Konstruktor - initierar tjänsten och säkerställer att datafilen existerar
         public SquareService(ILogger<SquareService> logger)
         {
             _logger = logger;
             
-            // Path where we'll store our squares data
-            _dataFilePath = "Data/squares.json";
+            // Skapa en absolut sökväg för datafilen
+            string baseDir = Directory.GetCurrentDirectory();
+            _dataFilePath = Path.Combine(baseDir, "Data", "squares.json");
+            _logger.LogInformation($"Data file path: {_dataFilePath}");
             
-            // Options for JSON serialization with pretty printing
+            // Alternativ för JSON-serialisering med formattering för läsbarhet
             _jsonOptions = new JsonSerializerOptions { WriteIndented = true };
 
-            // Make sure the Data directory exists
+            // Säkerställ att Data-katalogen existerar
             var dataDirectory = Path.GetDirectoryName(_dataFilePath);
-            if (!Directory.Exists(dataDirectory))
+            if (!string.IsNullOrEmpty(dataDirectory) && !Directory.Exists(dataDirectory))
             {
+                _logger.LogInformation($"Creating directory: {dataDirectory}");
                 Directory.CreateDirectory(dataDirectory);
             }
             
-            // Create the squares.json file if it doesn't exist
+            // Skapa squares.json-filen om den inte existerar
             if (!File.Exists(_dataFilePath))
             {
-                // Initialize with an empty list of squares
+                _logger.LogInformation($"Creating initial squares.json file");
+                // Initialisera med en tom lista av kvadrater
                 File.WriteAllText(_dataFilePath, JsonSerializer.Serialize(new List<Square>(), _jsonOptions));
             }
         }
 
-        // Get all squares from the data file
+        // Hämta alla kvadrater från datafilen
         public async Task<IEnumerable<Square>> GetAllSquaresAsync()
         {
             try
             {
-                // Read the entire file as text
+                _logger.LogInformation("Retrieving all squares");
+                
+                // Läs hela filen som text
                 var jsonData = await File.ReadAllTextAsync(_dataFilePath);
                 
-                // Convert the JSON text to a list of Square objects
-                // If deserializing fails, return an empty list
-                return JsonSerializer.Deserialize<List<Square>>(jsonData, _jsonOptions) ?? new List<Square>();
+                // Konvertera JSON-texten till en lista av Square-objekt
+                // Om deserialiseringen misslyckas, returnera en tom lista
+                var squares = JsonSerializer.Deserialize<List<Square>>(jsonData, _jsonOptions) ?? new List<Square>();
+                _logger.LogInformation($"Retrieved {squares.Count} squares");
+                return squares;
             }
             catch (Exception ex)
             {
-                // Log any errors
+                // Logga eventuella fel
                 _logger.LogError(ex, "Error retrieving squares from data file");
                 
-                // Throw a more specific exception
+                // Kasta ett mer specifikt undantag
                 throw new ApplicationException("Failed to retrieve squares data", ex);
             }
         }
 
-        // Add a new square to the data file
+        // Lägg till en ny kvadrat i datafilen
         public async Task<Square> AddSquareAsync(Square square)
         {
-            // Validate that a square was provided
+            // Validera att en kvadrat tillhandahölls
             if (square == null)
             {
+                _logger.LogWarning("Attempted to add null square");
                 throw new ArgumentNullException(nameof(square));
             }
 
             try
             {
-                // Get all existing squares
-                var squares = await GetAllSquaresAsync() as List<Square> ?? new List<Square>();
+                _logger.LogInformation($"Adding square at position ({square.X}, {square.Y}) with color {square.Color}");
+
+                // Hämta alla befintliga kvadrater
+                var squares = (await GetAllSquaresAsync()).ToList();
                 
-                // Check if a square already exists at this position
+                // Kontrollera om en kvadrat redan existerar på denna position
                 if (squares.Any(s => s.X == square.X && s.Y == square.Y))
                 {
+                    _logger.LogWarning($"A square already exists at position ({square.X}, {square.Y})");
                     throw new InvalidOperationException($"A square already exists at position ({square.X}, {square.Y})");
                 }
 
-                // Ensure the square has a unique ID and timestamp
+                // Säkerställ att kvadraten har ett unikt ID och tidsstämpel
                 square.Id = Guid.NewGuid();
                 square.CreatedAt = DateTime.UtcNow;
                 
-                // Add the new square to the list
+                // Lägg till den nya kvadraten i listan
                 squares.Add(square);
                 
-                // Save the updated list back to the file
-                await File.WriteAllTextAsync(_dataFilePath, JsonSerializer.Serialize(squares, _jsonOptions));
+                try
+                {
+                    // Spara den uppdaterade listan tillbaka till filen
+                    _logger.LogInformation($"Saving updated squares list with {squares.Count} squares");
+                    await File.WriteAllTextAsync(_dataFilePath, JsonSerializer.Serialize(squares, _jsonOptions));
+                    _logger.LogInformation($"Successfully added square with ID {square.Id}");
+                }
+                catch (IOException ioEx)
+                {
+                    _logger.LogError(ioEx, $"IO error when writing to {_dataFilePath}");
+                    throw;
+                }
                 
                 return square;
             }
-            catch (Exception ex) when (!(ex is ArgumentNullException || ex is InvalidOperationException))
+            catch (Exception ex) when (!(ex is ArgumentNullException || ex is InvalidOperationException || ex is IOException))
             {
-                // Log any unexpected errors
-                _logger.LogError(ex, "Error adding square to data file");
+                // Logga eventuella oväntade fel
+                _logger.LogError(ex, $"Error adding square at position ({square.X}, {square.Y})");
                 throw new ApplicationException("Failed to add square data", ex);
             }
         }
 
-        // Clear all squares from the data file
+        // Rensa alla kvadrater från datafilen
         public async Task ClearAllSquaresAsync()
         {
             try
             {
-                // Overwrite the file with an empty list
+                _logger.LogInformation("Clearing all squares");
+                // Skriv över filen med en tom lista
                 await File.WriteAllTextAsync(_dataFilePath, JsonSerializer.Serialize(new List<Square>(), _jsonOptions));
+                _logger.LogInformation("Successfully cleared all squares");
             }
             catch (Exception ex)
             {
-                // Log any errors
+                // Logga eventuella fel
                 _logger.LogError(ex, "Error clearing squares data");
                 throw new ApplicationException("Failed to clear squares data", ex);
             }
