@@ -31,9 +31,9 @@ Entity-validering
 Dependency Injection
 Strukturerad loggning
 Swagger/OpenAPI
-
-
+-------------------------------------------------------------------------------
 PROJEKTSTRUKTUR
+
 Client (Frontend)
 src/
 components/: Innehåller alla React-komponenter som bygger användargränssnittet
@@ -50,6 +50,7 @@ App.css: Stilar för huvudkomponenten och allmänna stilregler
 
 index.css: Globala CSS-regler och variabler
 
+---------------------------------------------------------------------------------
 
 Server (Backend)
 Endpoints/: Innehåller alla API-endpoints och routinglogik
@@ -60,11 +61,11 @@ Services/: Innehåller affärslogik och datahantering
 
 Program.cs: Konfigurerar och startar API-servern
 
-
+---------------------------------------------------------------------------------
 Tests
 Postman-samling: För testning av backend API-endpoints
 
-
+---------------------------------------------------------------------------------
 KOM IGÅNG
 
 Node.js  och Npm
