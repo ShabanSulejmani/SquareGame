@@ -24,7 +24,7 @@ React
 JavaScripit
 HTML/CSS
 Context API
-Fetch APIasdf
+Fetch API
 
 ### Backend (Server)
 .NET 7
