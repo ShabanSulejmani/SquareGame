@@ -70,7 +70,7 @@ Program.cs: Konfigurerar och startar API-servern
 Postman-samling: För testning av backend API-endpoints
 
 ---------------------------------------------------------------------------------
-## KOM IGÅNG##
+## KOM IGÅNG
 
 Node.js  och Npm
 
