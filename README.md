@@ -72,7 +72,7 @@ Node.js  och Npm
 
 .NET 7
 
-Visual Studio, Rider eller VS Code
+Visual Studio, VS Code Rider eller Webstorm
 
 Starta Backend
 Öppna server-mappen i Visual Studio eller Rider
