@@ -9,11 +9,11 @@ Varje gång en kvadrat läggs till, sparas dess position och färg på servern v
 
 FUNKTIONER
 
-Klicka på en knapp för att lägga till kvadrater i ett rutnät med slumpmässiga färger
-Persistent lagring av kvadrater via API
-Rensa alla kvadrater med en återställningsknapp
-Responsiv design som fungerar på olika skärmstorlekar
-Felhantering i realtid och återkoppling till användaren
+Klicka på en knapp för att lägga till kvadrater i ett rutnät med slumpmässiga färger.
+Persistent lagring av kvadrater via API.
+Rensa alla kvadrater med en återställningsknapp.
+Responsiv design som fungerar på olika skärmstorlekar.
+Felhantering i realtid och återkoppling till användaren.
 
 TEKONOLOGIER
 
