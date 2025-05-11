@@ -11,9 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a46e80f2-fabb-4e9e-bd47-f0c6bc5efea6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.server.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.server.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/SquareService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/SquareService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wizardwork_square_test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/wizardwork_square_test.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +120,7 @@
       <updated>1746793341515</updated>
       <workItem from="1746793346740" duration="116000" />
       <workItem from="1746793948737" duration="504000" />
-      <workItem from="1746908383008" duration="4140000" />
+      <workItem from="1746908383008" duration="5043000" />
     </task>
     <servers />
   </component>

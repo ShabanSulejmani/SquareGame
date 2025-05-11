@@ -3,23 +3,21 @@ using wizardwork_square_test.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Set port explicitly for consistency
+// Ange port explicit för konsistens
 builder.WebHost.UseUrls("http://localhost:5015");
 
-// Add services to the container
+// Lägg till tjänster i containern
 builder.Services.AddScoped<ISquareService, SquareService>();
 
-// Add logging services
+// Lägg till loggningstjänster
 builder.Services.AddLogging(logging =>
 {
     logging.AddConsole();
     logging.AddDebug();
 });
 
-// Remove CORS configuration as we're using proxy instead
-// No need for CORS when using a proxy approach
 
-// Add authorization services
+// Lägg till auktoriseringstjänster
 builder.Services.AddAuthorization();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -27,26 +25,20 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+// Konfigurera HTTP-begäranspipelinen
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// Disable HTTPS redirection for development
-// app.UseHttpsRedirection();
-
-// Remove CORS middleware - not needed with proxy approach
-// app.UseCors("AllowAll");
-
+// Konfigurerar routing och auktorisering för att hantera HTTP-förfrågningar och åtkomstkontroll
 app.UseRouting();
 app.UseAuthorization();
 
-// Map the Square endpoints
+// Mappa kvadrat-endpoints
 app.MapSquaresEndpoints();
 
-// Log that the app has started
+// Logga att appen har startat
 app.Logger.LogInformation("Application started. Listening on port 5015.");
 
 app.Run();
