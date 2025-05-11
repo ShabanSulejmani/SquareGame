@@ -57,7 +57,9 @@ index.css: Globala CSS-regler och variabler
 ---------------------------------------------------------------------------------
 
 ### Server (Backend)
-Endpoints/: Innehåller alla API-endpoints och routinglogik
+Api/: Innehåller alla API-endpoints och routinglogik
+
+Data/: Innehåller json data som sparar varje kvadrat som genereras
 
 Models/: Innehåller datamodeller och valideringslogik
 
