@@ -37,18 +37,27 @@ PROJEKTSTRUKTUR
 Client (Frontend)
 src/
 components/: Innehåller alla React-komponenter som bygger användargränssnittet
+
 context/: Innehåller React Context för global tillståndshantering i applikationen
+
 services/: Innehåller API-tjänster för kommunikation med backend
+
 App.jsx: Huvudkomponenten som fungerar som container för resten av applikationen
+
 main.jsx: Startpunkt för React-applikationen
+
 App.css: Stilar för huvudkomponenten och allmänna stilregler
+
 index.css: Globala CSS-regler och variabler
 
 
 Server (Backend)
 Endpoints/: Innehåller alla API-endpoints och routinglogik
+
 Models/: Innehåller datamodeller och valideringslogik
+
 Services/: Innehåller affärslogik och datahantering
+
 Program.cs: Konfigurerar och startar API-servern
 
 
@@ -58,8 +67,10 @@ Postman-samling: För testning av backend API-endpoints
 
 KOM IGÅNG
 
-Node.js  och npm
-.NET 7 SDK
+Node.js  och Npm
+
+.NET 7
+
 Visual Studio, Rider eller VS Code
 
 Starta Backend
