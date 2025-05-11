@@ -20,19 +20,19 @@ Felhantering i realtid och återkoppling till användaren.
 ## TEKONOLOGIER
 
 ### Frontend (Client)
-React
-JavaScripit
-HTML/CSS
-Context API
-Fetch API
+React,
+JavaScripit,
+HTML/CSS,
+Context API,
+Fetch API.
 
 ### Backend (Server)
-.NET 7
-Minimal API
-Entity-validering
-Dependency Injection
-Strukturerad loggning
-Swagger/OpenAPI
+.NET 7,
+Minimal API,
+Entity-validering,
+Dependency Injection,
+Strukturerad loggning,
+Swagger/OpenAPI.
 
 -------------------------------------------------------------------------------
 ## PROJEKTSTRUKTUR
