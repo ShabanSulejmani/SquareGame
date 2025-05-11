@@ -95,7 +95,7 @@ npm run dev
 Kom åt applikationen på http://localhost:5173 (eller din konfigurerade port)
 
 
-###API-endpoints
+### API-endpoints
 Metod ,Endpoint,Beskrivning
 
 ### GET
