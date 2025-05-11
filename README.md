@@ -1,9 +1,8 @@
 # SquareGame
-Don't be a Square - Wizardworks uppgift
+Don't be a Square 
 
 ## PROJEKTÖVERISKT
 
-Detta projekt är en fullständig implementering av Wizardworks rekryteringsuppgift "Don't be a Square".
 Applikationen genererar ett interaktivt rutnät där färgade kvadrater kan läggas till sekventiellt med slumpmässiga färger. 
 Varje gång en kvadrat läggs till, sparas dess position och färg på servern via ett REST API, så att tillståndet bevaras mellan olika sessioner.
 
