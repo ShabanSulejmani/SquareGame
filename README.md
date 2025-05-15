@@ -11,8 +11,8 @@ Varje kvadrat får en slumpmässig färg och dess position sparas via ett REST A
 
 Klicka på en knapp för att lägga till kvadrater med slumpmässiga färger.
 
-### Spiral: Börjar från mitten och bygger utåt i spiraler.
-### Box: Börjar som 2x2 och bygger större och större boxar.
+Spiral: Börjar från mitten och bygger utåt i spiraler.
+Box: Börjar som 2x2 och bygger större och större boxar.
 
 Persistent lagring av kvadrater via API.
 Rensa alla kvadrater med en återställningsknapp.
