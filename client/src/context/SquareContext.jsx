@@ -1,91 +1,76 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { getSquares, addSquare, clearSquares, getRandomColor } from '../services/api';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getSquares, addSquare as apiAddSquare, clearSquares as apiClearSquares } from '../services/api';
 
-// Skapa en Context för hantering av kvadrater
+// Skapa ett Context för kvadrater
 const SquareContext = createContext();
 
-// Custom hook för att använda Square Context
-export const useSquareContext = () => {
-    const context = useContext(SquareContext);
-    if (!context) {
-        throw new Error('useSquareContext måste användas inom en SquareProvider');
-    }
-    return context;
-};
+// Hook för att använda SquareContext i komponenter
+export const useSquareContext = () => useContext(SquareContext);
 
-// Provider-komponent som omsluter applikationen
 export const SquareProvider = ({ children }) => {
-    // State för att spara alla kvadrater
-    const [squares, setSquares] = useState([]);
-    // State för att hantera laddningsstatus
-    const [loading, setLoading] = useState(true);
-    // State för att hantera felmeddelanden
-    const [error, setError] = useState(null);
+    const [squares, setSquares] = useState([]);  // Lista med alla kvadrater
+    const [loading, setLoading] = useState(false); // Om API-anrop pågår
+    const [error, setError] = useState(null); // Eventuella felmeddelanden
 
-    // Funktion för att läsa in alla kvadrater
-    const fetchSquares = async () => {
+    // Hämtar alla kvadrater från backend och uppdaterar state
+    const refreshSquares = async () => {
+        setLoading(true);
+        setError(null);
         try {
-            setLoading(true);
-            setError(null);
-            const data = await getSquares();
-            setSquares(data);
+            const squaresFromApi = await getSquares();
+            setSquares(squaresFromApi);
         } catch (err) {
-            setError('Kunde inte ladda kvadrater. Är servern igång?');
-            console.error('Fel vid hämtning av kvadrater:', err);
+            setError('Misslyckades att hämta kvadrater');
         } finally {
             setLoading(false);
         }
     };
 
-    // Funktion för att lägga till en ny kvadrat
-    const createSquare = async (x, y) => {
-        try {
-            setError(null);
-            const newSquare = {
-                x,
-                y,
-                color: getRandomColor(),
-            };
-
-            const createdSquare = await addSquare(newSquare);
-            setSquares(prev => [...prev, createdSquare]);
-            return createdSquare;
-        } catch (err) {
-            setError('Kunde inte lägga till kvadrat');
-            console.error('Fel vid skapande av kvadrat:', err);
-            throw err;
-        }
-    };
-
-    // Funktion för att rensa alla kvadrater
-    const resetSquares = async () => {
-        try {
-            setError(null);
-            await clearSquares();
-            setSquares([]);
-        } catch (err) {
-            setError('Kunde inte rensa kvadrater');
-            console.error('Fel vid rensning av kvadrater:', err);
-        }
-    };
-
-    // Ladda in kvadrater när komponenten monteras
+    // Hämta kvadrater direkt vid mount
     useEffect(() => {
-        fetchSquares();
+        refreshSquares();
     }, []);
 
-    // Värden och funktioner som ska delas via Context
-    const value = {
-        squares,
-        loading,
-        error,
-        fetchSquares,
-        createSquare,
-        resetSquares
+    // Skapar en ny kvadrat via API och uppdaterar listan
+    const createSquare = async (x, y, color) => {
+        setLoading(true);
+        setError(null);
+        try {
+            await apiAddSquare({ x, y, color });
+            await refreshSquares(); // Uppdatera listan efter skapande
+        } catch (err) {
+            setError('Misslyckades att skapa kvadrat');
+            throw err; // Skicka vidare felet så frontend kan hantera det
+        } finally {
+            setLoading(false);
+        }
     };
 
+    // Rensar alla kvadrater via API och tömmer local state
+    const resetSquares = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            await apiClearSquares();
+            setSquares([]); // Töm lokalt state
+        } catch (err) {
+            setError('Misslyckades att rensa kvadrater');
+            throw err;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Tillgängliga värden/funktioner i contexten
     return (
-        <SquareContext.Provider value={value}>
+        <SquareContext.Provider value={{
+            squares,
+            createSquare,
+            resetSquares,
+            refreshSquares,
+            loading,
+            error
+        }}>
             {children}
         </SquareContext.Provider>
     );
