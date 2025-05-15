@@ -3,7 +3,7 @@ Don't be a Square
 
 ## PROJEKTÖVERISKT
 
-Detta är en interaktiv webbapplikation som visualiserar färgade kvadrater i ett rutnät, där användaren kan lägga till dem sekventiellt enligt ett av två mönster: Spiral eller Box. 
+Detta är en interaktiv webbapplikation som visualiserar färgade kvadrater , där användaren kan lägga till dem sekventiellt enligt ett av två mönster: Spiral eller Box. 
 Varje kvadrat får en slumpmässig färg och dess position sparas via ett REST API, vilket säkerställer att rutorna är kvar även vid uppdatering eller omladdning av sidan.
 
 ----------------------------------------------------------------------------------
