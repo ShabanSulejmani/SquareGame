@@ -3,13 +3,17 @@ Don't be a Square
 
 ## PROJEKTÖVERISKT
 
-Applikationen genererar ett interaktivt rutnät där färgade kvadrater kan läggas till sekventiellt med slumpmässiga färger. 
-Varje gång en kvadrat läggs till, sparas dess position och färg på servern via ett REST API, så att tillståndet bevaras mellan olika sessioner.
+Detta är en interaktiv webbapplikation som visualiserar färgade kvadrater i ett rutnät, där användaren kan lägga till dem sekventiellt enligt ett av två mönster: Spiral eller Box. 
+Varje kvadrat får en slumpmässig färg och dess position sparas via ett REST API, vilket säkerställer att rutorna är kvar även vid uppdatering eller omladdning av sidan.
 
 ----------------------------------------------------------------------------------
 ## FUNKTIONER
 
-Klicka på en knapp för att lägga till kvadrater i ett rutnät med slumpmässiga färger.
+Klicka på en knapp för att lägga till kvadrater med slumpmässiga färger.
+
+### Spiral: Börjar från mitten och bygger utåt i spiraler.
+### Box: Börjar som 2x2 och bygger större och större boxar.
+
 Persistent lagring av kvadrater via API.
 Rensa alla kvadrater med en återställningsknapp.
 Responsiv design som fungerar på olika skärmstorlekar.
