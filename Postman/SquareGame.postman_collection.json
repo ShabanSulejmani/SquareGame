@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "0a9f9c26-20a3-43de-85b5-f68db1b2d402",
+		"name": "SquareGame",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43523371"
+	},
+	"item": [
+		{
+			"name": "Post New Square",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// POST: Test för att lägga till en kvadrat\r",
+							"const postTests = () => {\r",
+							"    // Test för lyckad skapande av kvadrat\r",
+							"    pm.test(\"Lägga till ny kvadrat\", function () {\r",
+							"        pm.response.to.have.status(201);\r",
+							"        const responseData = pm.response.json();\r",
+							"        pm.expect(responseData).to.have.property('id');\r",
+							"        pm.expect(responseData).to.have.property('x');\r",
+							"        pm.expect(responseData).to.have.property('y');\r",
+							"        pm.expect(responseData).to.have.property('color');\r",
+							"        pm.expect(responseData).to.have.property('createdAt');\r",
+							"        \r",
+							"        // Spara ID för eventuell framtida användning\r",
+							"        pm.collectionVariables.set('squareId', responseData.id);\r",
+							"    });\r",
+							"    \r",
+							"    // Validera att den skapade kvadraten har rätt färgformat\r",
+							"    pm.test(\"Kvadrat har giltig färgkod\", function () {\r",
+							"        const responseData = pm.response.json();\r",
+							"        pm.expect(responseData.color).to.match(/^#([A-Fa-f0-9]{6})$/);\r",
+							"    });\r",
+							"};\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"x\": 1,\r\n  \"y\": 3,\r\n  \"color\": \"#FF5733\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5015/api/squares",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5015",
+					"path": [
+						"api",
+						"squares"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Square",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// GET: Test för att hämta alla kvadrater\r",
+							"pm.test(\"Hämta alla kvadrater\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(Array.isArray(responseData)).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5015/api/squares",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5015",
+					"path": [
+						"api",
+						"squares"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete All Square",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// DELETE: Test för att rensa alla kvadrater\r",
+							"pm.test(\"Rensa alla kvadrater\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5015/api/squares",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5015",
+					"path": [
+						"api",
+						"squares"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5015/api/squares",
+			"type": "string"
+		}
+	]
+}
